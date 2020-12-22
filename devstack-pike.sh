@@ -11,8 +11,8 @@ externalip=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/c
 
 # Clone devstack Pike repo
 
-git clone https://git.openstack.org/openstack-dev/devstack -b stable/pike
-git clone https://github.com/openstack/manila.git -b pike-em
+git clone https://git.openstack.org/openstack-dev/devstack -b stable/victoria
+git clone https://github.com/openstack/manila.git -b stable/victoria
 cp ./manila/contrib/devstack/lib/manila ./devstack/lib
 cp ./manila/contrib/devstack/extras.d/70-manila.sh ./devstack/extras.d/
 
