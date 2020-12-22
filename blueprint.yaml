@@ -45,21 +45,21 @@ dsl_definitions:
 
 node_templates:
 
-  devstack:
-    type: cloudify.nodes.Root
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        create:
-          implementation: fabric.fabric_plugin.tasks.run_script
-          inputs:
-            script_path: devstack.sh
-            fabric_env: &fabric_env_ni
-              host_string: { get_attribute: [ vm, ip ] }
-              user: { get_property: [ vm, agent_config, user ] }
-              key: { get_property: [ vm, agent_config, key ] }
-    relationships:
-    - type: cloudify.relationships.connected_to
-      target: vm
+#  devstack:
+#    type: cloudify.nodes.Root
+#    interfaces:
+#      cloudify.interfaces.lifecycle:
+#        create:
+#          implementation: fabric.fabric_plugin.tasks.run_script
+#          inputs:
+#            script_path: devstack.sh
+#            fabric_env: &fabric_env_ni
+#              host_string: { get_attribute: [ vm, ip ] }
+#              user: { get_property: [ vm, agent_config, user ] }
+#              key: { get_property: [ vm, agent_config, key ] }
+#    relationships:
+#    - type: cloudify.relationships.connected_to
+#      target: vm
 
   vm:
     type: cloudify.gcp.nodes.Instance
@@ -85,7 +85,7 @@ node_templates:
     interfaces:
       cloudify.interfaces.lifecycle:
         create:
-          implementation: scripts/gcp/key.py
+          implementation: gcp.py
           executor: central_deployment_agent
           inputs:
             user: { get_input: agent_user }

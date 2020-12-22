@@ -1,10 +1,13 @@
+#!/usr/bin/env bash
 # Prepare the system
 
 DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
 DEBIAN_FRONTEND=noninteractive sudo apt-get upgrade -y
 
-sudo apt-get -y install git vim-gtk libxml2-dev libxslt1-dev libpq-dev python-pip libsqlite3-dev
-sudo apt-get -y build-dep python-mysqldb && sudo pip install git-review tox
+sudo apt-get -y update
+sudo apt-get -y install git vim-gtk libxml2-dev libxslt1-dev libpq-dev python-pip libsqlite3-dev wget
+sudo apt-get -y build-dep python-mysqldb
+sudo pip install git-review tox
 
 # Get External IP of this Instance
 externalip=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
@@ -12,9 +15,6 @@ externalip=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/c
 # Clone devstack Pike repo
 
 git clone https://git.openstack.org/openstack-dev/devstack -b stable/victoria
-# git clone https://github.com/openstack/manila.git -b stable/victoria
-# cp ./manila/contrib/devstack/lib/manila ./devstack/lib
-# cp ./manila/contrib/devstack/extras.d/70-manila.sh ./devstack/extras.d/
 
 cd devstack
 
@@ -22,6 +22,8 @@ cd devstack
 cat <<- EOF > local.conf
 [[local|localrc]]
 # Set basic passwords
+HOST_IP=$externalip
+SERVICE_IP=$externalip
 ADMIN_PASSWORD=openstack
 DATABASE_PASSWORD=openstack
 RABBIT_PASSWORD=openstack
