@@ -51,7 +51,7 @@ node_templates:
         create:
           implementation: fabric.fabric_plugin.tasks.run_script
           inputs:
-            script_path: devstack-pike.sh
+            script_path: devstack.sh
             fabric_env: &fabric_env_ni
               host_string: { get_attribute: [ vm, ip ] }
               user: { get_property: [ vm, agent_config, user ] }
