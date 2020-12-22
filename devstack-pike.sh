@@ -12,9 +12,9 @@ externalip=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/c
 # Clone devstack Pike repo
 
 git clone https://git.openstack.org/openstack-dev/devstack -b stable/victoria
-git clone https://github.com/openstack/manila.git -b stable/victoria
-cp ./manila/contrib/devstack/lib/manila ./devstack/lib
-cp ./manila/contrib/devstack/extras.d/70-manila.sh ./devstack/extras.d/
+# git clone https://github.com/openstack/manila.git -b stable/victoria
+# cp ./manila/contrib/devstack/lib/manila ./devstack/lib
+# cp ./manila/contrib/devstack/extras.d/70-manila.sh ./devstack/extras.d/
 
 cd devstack
 
@@ -29,6 +29,7 @@ SERVICE_PASSWORD=openstack
 # Configure Nova novnc Proxy Base URL with External IP of this Instance
 NOVNCPROXY_URL=http://$externalip:6080/vnc_auto.html
 enable_plugin manila https://github.com/openstack/manila
+enable_plugin manila-ui https://github.com/openstack/manila-ui
 #manila
 ENABLED_SERVICES+=,manila,m-api,m-sch,m-shr
 
