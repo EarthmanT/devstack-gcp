@@ -5,7 +5,6 @@ imports:
   - plugin:cloudify-gcp-plugin?version= >=1.6.0
   - plugin:cloudify-utilities-plugin?version= >=1.22.1
 
-
 inputs:
 
   region:
@@ -49,11 +48,10 @@ node_templates:
     type: cloudify.nodes.Root
     interfaces:
       cloudify.interfaces.lifecycle:
-        start:
-          implementation: fabric.fabric_plugin.tasks.run_task
+        create:
+          implementation: fabric.fabric_plugin.tasks.run_script
           inputs:
-            tasks_file: scripts/devstack.py
-            task_name: install
+            script_path: devstack-pike.sh
             fabric_env: &fabric_env_ni
               host_string: { get_attribute: [ vm, ip ] }
               user: { get_property: [ vm, agent_config, user ] }
