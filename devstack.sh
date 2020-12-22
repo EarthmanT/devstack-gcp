@@ -23,7 +23,7 @@ cat <<- EOF > local.conf
 [[local|localrc]]
 # Set basic passwords
 HOST_IP=$externalip
-SERVICE_IP=$externalip
+# SERVICE_IP=$externalip
 ADMIN_PASSWORD=openstack
 DATABASE_PASSWORD=openstack
 RABBIT_PASSWORD=openstack
